@@ -92,9 +92,7 @@ function validateFields_(fields) {
 }
 
 function isGoogleDriveFileLink_(value) {
-  return /^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i.test(value) ||
-    /^https:\/\/drive\.google\.com\/(?:open|uc)\?(?:[^#]*&)?id=[A-Za-z0-9_-]+(?:&[^#]*)?(?:#.*)?$/i.test(value) ||
-    /^https:\/\/docs\.google\.com\/document\/d\/[A-Za-z0-9_-]+(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i.test(value);
+  return /^https:\/\/(?:drive|docs)\.google\.com(?::443)?(?:[/?#]|$)/i.test(value);
 }
 
 function verifyCaptcha_(token, secret, allowedHostnames) {

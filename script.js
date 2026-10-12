@@ -191,12 +191,7 @@ function isValidDriveLink(value) {
     const url = new URL(value);
     if (url.protocol !== "https:" || url.username || url.password) return false;
 
-    if (url.hostname === "drive.google.com") {
-      return /^\/file\/d\/[A-Za-z0-9_-]+(?:\/|$)/.test(url.pathname) ||
-        (["/open", "/uc"].includes(url.pathname) && Boolean(url.searchParams.get("id")));
-    }
-    return url.hostname === "docs.google.com" &&
-      /^\/document\/d\/[A-Za-z0-9_-]+(?:\/|$)/.test(url.pathname);
+    return url.hostname === "drive.google.com" || url.hostname === "docs.google.com";
   } catch {
     return false;
   }
