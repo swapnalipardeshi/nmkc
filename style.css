@@ -9,3 +9,5 @@
 .resume-upload-input::file-selector-button:hover{background:var(--blue)}
 .resume-upload-control small{color:var(--muted);font-size:.82rem}
 .resume-upload-control .resume-file-name{color:var(--navy);font-weight:600;overflow-wrap:anywhere}
+.captcha-field{margin:18px 0 10px}
+.captcha-field small{display:block;margin-top:7px;color:var(--muted);font-size:.82rem}

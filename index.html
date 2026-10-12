@@ -130,7 +130,7 @@
         <div class="apply-copy">
           <p class="eyebrow eyebrow-dark">TAKE THE FIRST STEP</p>
           <h2>Apply for a<br /><span>teaching position.</span></h2>
-          <p>Complete the form below to email your application details to <a href="mailto:swapnalipardeshi05032001@gmail.com">swapnalipardeshi05032001@gmail.com</a>.</p>
+          <p>Complete the form below to send your application to the NMKC recruitment team.</p>
           <div class="apply-note"><span>i</span><p>Keep your resume, degree certificates, experience certificates and ID proof ready for the interview, as applicable.</p></div>
         </div>
         <form class="application-form" id="applicationForm">
@@ -166,17 +166,20 @@
             <label class="field full-width">Teaching / industry experience (optional)
               <textarea name="experience" rows="3" placeholder="Briefly mention relevant experience"></textarea>
             </label>
-            <label class="field full-width">Resume / CV <span>*</span>
+            <label class="field full-width">Google Drive resume link <span>*</span>
               <span class="resume-upload-control">
-                <input class="resume-upload-input" type="file" id="resumeInput" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required aria-describedby="resumeHelp resumeFileName" />
-                <small id="resumeHelp">PDF or Word document (.pdf, .doc, .docx).</small>
-                <small class="resume-file-name" id="resumeFileName" aria-live="polite">No resume selected</small>
+                <input class="resume-upload-input" type="url" id="resumeLink" name="resumeLink" placeholder="https://drive.google.com/file/d/..." required aria-required="true" aria-describedby="resumeHelp" />
+                <small id="resumeHelp">Paste a link to your resume file. In Google Drive, set General access to “Anyone with the link” and role to “Viewer”, otherwise HR may not be able to open it. Anyone with the link can then view the file.</small>
               </span>
             </label>
           </div>
-          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and resume to swapnalipardeshi05032001@gmail.com. <b>*</b></span></label>
+          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and resume to the NMKC recruitment team. <b>*</b></span></label>
+          <div class="captcha-field">
+            <div id="captchaContainer" aria-label="Spam protection"></div>
+            <small>Complete the spam protection check before submitting.</small>
+          </div>
           <button class="button button-submit" type="submit">Send application <span aria-hidden="true">→</span></button>
-          <p class="form-footnote">Your application details and resume will be sent by email. Submit only if you agree to share them with the recipient above.</p>
+          <p class="form-footnote">Your application details and Google Drive resume link will be emailed to the recruitment team.</p>
           <div class="form-message" id="formMessage" role="status" aria-live="polite" hidden></div>
         </form>
       </div>
@@ -196,7 +199,6 @@
       <p class="footer-small">Recruitment information reproduced from the supplied advertisement. Please confirm details with the institution.</p>
     </div>
   </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

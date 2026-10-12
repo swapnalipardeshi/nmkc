@@ -1,34 +1,30 @@
 # NMKC Recruitment Website
 
-A responsive front-end recruitment website for the North Maharashtra Knowledge City, Jalgaon walk-in interview advertisement.
+A responsive recruitment page for the North Maharashtra Knowledge City, Jalgaon walk-in interview advertisement.
 
-## Files
-- `index.html` — page structure and application form
-- `style.css` — responsive styling
-- `script.js` — mobile menu and EmailJS form handling
+## Application form
 
-## Run locally
-1. Extract the ZIP file.
-2. Open the `nmkc_recruitment_website` folder.
-3. Double-click `index.html`, or open it in VS Code and use Live Server.
+Applicants paste a Google Drive link to their resume rather than uploading a file. The form validates that the link points to a Google Drive file or Google Docs document and emails it with the application details to the configured recruitment recipient. The HR email address is not displayed on the form.
 
-No installation or build tools are required.
+### Google Drive sharing note
 
-## Application form behavior
-The form validates required fields, including a resume in PDF or Word format, and sends the application details and resume attachment with EmailJS to `swapnalipardeshi05032001@gmail.com`. EmailJS is loaded from jsDelivr; without valid EmailJS configuration the form will show an error and will not claim the application was sent.
+Applicants must set the resume file's Google Drive **General access** to **Anyone with the link — Viewer** so HR can open it without being individually added to the file. This makes the resume accessible to anyone who obtains the link. Applicants should only submit a resume they agree to share this way. If that access level is not acceptable, use a private upload backend that grants HR access instead.
 
-### Configure EmailJS
-1. Create an EmailJS account and add an email service that can deliver to `swapnalipardeshi05032001@gmail.com`.
-2. Create an email template. Set the template's **To Email** to `swapnalipardeshi05032001@gmail.com` (do not let applicants choose the recipient). Use these template variables in the subject/body: `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, and `{{experience}}`.
-3. In the template's **Attachments** tab, add a **Form File Attachment** and set its **Parameter Name** to `resume`. This must match the file input's `name="resume"`; the form uses EmailJS `sendForm` to send the uploaded document.
-   The resume is sent as an email attachment. The form does not create a hosted resume URL, so remove any `{{resume_url}}` link/button from the EmailJS template and replace it with text such as: “The applicant's resume is attached to this email.”
-   If EmailJS rejects a resume because it exceeds 50 KB, check the attachment-size limits for the EmailJS plan and connected email service. Raise the applicable limit in the provider settings/plan; this website cannot override provider limits.
-4. Copy the EmailJS public key, service ID, and template ID into `EMAILJS_CONFIG` in `script.js`. The public key is intended for browser use; never put a private key or email account password in this website.
-5. Restrict the EmailJS allowed origins to the website's published domain and configure the provider's usage limits before publishing.
+## Configure email delivery
 
-Test with a non-sensitive application and resume before sharing the site. EmailJS/provider attachment size limits may apply. This is a third-party email form, not an official college recruitment portal; obtain institutional approval and provide any required privacy notice before using it for real applicants.
+The form uses a Google Apps Script web app to send details and the pasted resume link. Set up the separate backend in `google_apps_script/Code.gs`:
 
-If the form reports a timeout, delivery is unconfirmed (the request may still finish). Check **EmailJS → Email History** before submitting again to avoid duplicate applications. If EmailJS reports a send error, verify the template's fixed **To Email**, the connected email service, allowed website origins, and the `resume` attachment parameter.
+1. Create a standalone project at [Google Apps Script](https://script.google.com/) and paste in `google_apps_script/Code.gs`.
+2. In **Project Settings → Script Properties**, configure:
+   - `HR_EMAIL` — the recruitment inbox.
+   - `RECAPTCHA_SECRET_KEY` — the server-side reCAPTCHA secret.
+   - `ALLOWED_HOSTNAMES` — the exact website hostname; use comma-separated hostnames only for local testing.
+3. Deploy as a **Web app**, executing as the script owner and allowing access to anyone. Authorize the email and URL Fetch permissions, then copy the deployed `/exec` URL.
+4. In `script.js`, replace `YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL` with the deployed URL and `YOUR_RECAPTCHA_SITE_KEY` with the public reCAPTCHA site key registered to the website hostname.
+
+Never put the reCAPTCHA secret or HR email in the static website. The backend only accepts HTTPS Google Drive/Docs file links, verifies reCAPTCHA and emails HR the application plus a clickable resume link. It does not upload, store, or change sharing permissions on applicant files.
+
+Use HTTPS and test with a non-sensitive application before publishing. Apps Script email quotas apply. This is not an official college recruitment portal; obtain institutional approval and provide any required privacy notice before using it for real applicants.
 
 ## Advertisement details included
 - Walk-in interview: Thursday, 15 October 2026
