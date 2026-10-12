@@ -5,7 +5,7 @@ A responsive front-end recruitment website for the North Maharashtra Knowledge C
 ## Files
 - `index.html` — page structure and application form
 - `style.css` — responsive styling
-- `script.js` — mobile menu and demo form handling
+- `script.js` — mobile menu and EmailJS form handling
 
 ## Run locally
 1. Extract the ZIP file.
@@ -15,9 +15,17 @@ A responsive front-end recruitment website for the North Maharashtra Knowledge C
 No installation or build tools are required.
 
 ## Application form behavior
-The form validates required fields and saves submissions to the browser's `localStorage` under `nmkcApplications`. It does **not** send applications to the college or to an email address. Browser storage is local to that browser/device and can be cleared.
+The form validates required fields, including a resume in PDF or Word format, and sends the application details and resume attachment with EmailJS to `swapnalipardeshi05032001@gmail.com`. EmailJS is loaded from jsDelivr; without valid EmailJS configuration the form will show an error and will not claim the application was sent.
 
-To receive real applications, connect the form to a backend/API or a form service, add server-side validation and secure storage, and publish a privacy notice. Do not use this demo as an official recruitment portal without institutional approval.
+### Configure EmailJS
+1. Create an EmailJS account and add an email service that can deliver to `swapnalipardeshi05032001@gmail.com`.
+2. Create an email template. Set the template's **To Email** to `swapnalipardeshi05032001@gmail.com` (do not let applicants choose the recipient). Use these template variables in the subject/body: `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, and `{{experience}}`.
+3. In the template's **Attachments** tab, add a **Form File Attachment** and set its **Parameter Name** to `resume`. This must match the file input's `name="resume"`; the form uses EmailJS `sendForm` to send the uploaded document.
+   The resume is sent as an email attachment. Do not use `{{resume_url}}` as a link unless you separately implement file hosting; this form does not upload resumes to a URL.
+4. Copy the EmailJS public key, service ID, and template ID into `EMAILJS_CONFIG` in `script.js`. The public key is intended for browser use; never put a private key or email account password in this website.
+5. Restrict the EmailJS allowed origins to the website's published domain and configure the provider's usage limits before publishing.
+
+Test with a non-sensitive application and resume before sharing the site. EmailJS/provider attachment size limits may apply. This is a third-party email form, not an official college recruitment portal; obtain institutional approval and provide any required privacy notice before using it for real applicants.
 
 ## Advertisement details included
 - Walk-in interview: Thursday, 15 October 2026

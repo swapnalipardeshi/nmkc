@@ -130,10 +130,12 @@
         <div class="apply-copy">
           <p class="eyebrow eyebrow-dark">TAKE THE FIRST STEP</p>
           <h2>Apply for a<br /><span>teaching position.</span></h2>
-          <p>Complete the form below to prepare your application details. This demo website saves entries only in this browser; it does not send them to the college.</p>
+          <p>Complete the form below to email your application details to <a href="mailto:swapnalipardeshi05032001@gmail.com">swapnalipardeshi05032001@gmail.com</a>.</p>
           <div class="apply-note"><span>i</span><p>Keep your resume, degree certificates, experience certificates and ID proof ready for the interview, as applicable.</p></div>
         </div>
         <form class="application-form" id="applicationForm">
+          <input type="hidden" name="application_id" />
+          <input type="hidden" name="submitted_at" />
           <div class="form-heading"><div><span class="form-step">APPLICATION FORM</span><h3>Candidate details</h3></div><span class="required-note">* Required fields</span></div>
           <div class="form-grid">
             <label class="field full-width">Full name <span>*</span>
@@ -164,10 +166,14 @@
             <label class="field full-width">Teaching / industry experience (optional)
               <textarea name="experience" rows="3" placeholder="Briefly mention relevant experience"></textarea>
             </label>
+            <label class="field full-width">Resume / CV <span>*</span>
+              <input type="file" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+              <small>Upload a PDF or Word document (.pdf, .doc, .docx).</small>
+            </label>
           </div>
-          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm that the information provided is accurate to the best of my knowledge. <b>*</b></span></label>
-          <button class="button button-submit" type="submit">Prepare application <span aria-hidden="true">→</span></button>
-          <p class="form-footnote">Demo mode: submissions are stored in this browser only. Contact the college directly to confirm the official application process.</p>
+          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and resume to swapnalipardeshi05032001@gmail.com. <b>*</b></span></label>
+          <button class="button button-submit" type="submit">Send application <span aria-hidden="true">→</span></button>
+          <p class="form-footnote">Your application details and resume will be sent by email. Submit only if you agree to share them with the recipient above.</p>
           <div class="form-message" id="formMessage" role="status" aria-live="polite" hidden></div>
         </form>
       </div>
@@ -187,6 +193,7 @@
       <p class="footer-small">Recruitment information reproduced from the supplied advertisement. Please confirm details with the institution.</p>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
