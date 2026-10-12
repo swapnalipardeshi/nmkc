@@ -174,10 +174,6 @@
             </label>
           </div>
           <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and optional resume link to the NMKC recruitment team. <b>*</b></span></label>
-          <div class="captcha-field">
-            <div id="captchaContainer" aria-label="Spam protection"></div>
-            <small>Complete the spam protection check before submitting.</small>
-          </div>
           <button class="button button-submit" type="submit">Send application <span aria-hidden="true">→</span></button>
           <p class="form-footnote">Your application details and, if provided, your Google Drive resume link will be emailed to the recruitment team.</p>
           <div class="form-message" id="formMessage" role="status" aria-live="polite" hidden></div>
@@ -199,6 +195,7 @@
       <p class="footer-small">Recruitment information reproduced from the supplied advertisement. Please confirm details with the institution.</p>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

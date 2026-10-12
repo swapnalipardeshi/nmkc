@@ -4,27 +4,22 @@ A responsive recruitment page for the North Maharashtra Knowledge City, Jalgaon 
 
 ## Application form
 
-Applicants may optionally paste a Google Drive link to their resume rather than uploading a file. When provided, the form validates that the link points to a Google Drive file or Google Docs document and emails it with the application details to the configured recruitment recipient. The HR email address is not displayed on the form.
+Applicants may optionally paste a Google Drive link to their resume. The form emails application details and the link to the recruitment inbox using EmailJS. It does not upload or attach resume files, so the EmailJS 50 KB file-attachment limit does not apply. The HR email address is not displayed in the applicant-facing form.
 
-### Google Drive sharing note
+If a resume link is provided, applicants must set its Google Drive **General access** to **Anyone with the link — Viewer** so HR can open it. Anyone who obtains that link can then view the file.
 
-Applicants must set the resume file's Google Drive **General access** to **Anyone with the link — Viewer** so HR can open it without being individually added to the file. This makes the resume accessible to anyone who obtains the link. Applicants should only submit a resume they agree to share this way. If that access level is not acceptable, use a private upload backend that grants HR access instead.
+## EmailJS configuration
 
-## Configure email delivery
+The page uses the configured public key, service ID, and template ID in `script.js`. In the EmailJS template:
 
-The form uses a Google Apps Script web app to send details and the pasted resume link. Set up the separate backend in `google_apps_script/Code.gs`:
+1. Set **To Email** to the recruitment inbox as a fixed template setting. Do not use an applicant-controlled recipient.
+2. Include the form variables `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, `{{experience}}`, and `{{resumeLink}}` in the subject/body. The resume link is optional.
+3. Do not configure a file attachment for `resume`; this form sends a Drive URL as text.
+4. Restrict allowed origins to the published website domain and configure EmailJS usage limits.
 
-1. Create a standalone project at [Google Apps Script](https://script.google.com/) and paste in `google_apps_script/Code.gs`.
-2. In **Project Settings → Script Properties**, configure:
-   - `HR_EMAIL` — the recruitment inbox.
-   - `RECAPTCHA_SECRET_KEY` — the server-side reCAPTCHA secret.
-   - `ALLOWED_HOSTNAMES` — the exact website hostname; use comma-separated hostnames only for local testing.
-3. Deploy as a **Web app**, executing as the script owner and allowing access to anyone. Authorize the email and URL Fetch permissions, then copy the deployed `/exec` URL.
-4. In `script.js`, replace `YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL` with the deployed URL and `YOUR_RECAPTCHA_SITE_KEY` with the public reCAPTCHA site key registered to the website hostname.
+EmailJS loads from jsDelivr, so submissions require an internet connection. If the service does not load or send, check the browser console and **EmailJS → Email History**, and verify the service/template IDs, fixed recipient, template variables, and allowed origins. A timeout means delivery is unconfirmed; check Email History before retrying.
 
-Never put the reCAPTCHA secret or HR email in the static website. The backend only accepts HTTPS Google Drive/Docs file links, verifies reCAPTCHA and emails HR the application plus a clickable resume link. It does not upload, store, or change sharing permissions on applicant files.
-
-Use HTTPS and test with a non-sensitive application before publishing. Apps Script email quotas apply. This is not an official college recruitment portal; obtain institutional approval and provide any required privacy notice before using it for real applicants.
+This is not an official college recruitment portal. Obtain institutional approval and provide any required privacy notice before using it for real applicants.
 
 ## Advertisement details included
 - Walk-in interview: Thursday, 15 October 2026
