@@ -85,8 +85,8 @@ function validateFields_(fields) {
   if (!clean.education || !clean.subject || !clean.position) {
     throw new Error("Complete all required application fields.");
   }
-  if (!isGoogleDriveFileLink_(clean.resumeLink)) {
-    throw new Error("Paste a valid Google Drive file link to your resume.");
+  if (clean.resumeLink && !isGoogleDriveFileLink_(clean.resumeLink)) {
+    throw new Error("Paste a valid Google Drive file link, or leave the optional field empty.");
   }
   return clean;
 }
@@ -138,12 +138,12 @@ function sendApplicationEmail_(hrEmail, fields, referenceId) {
     ["Interested subject", fields.subject],
     ["Interested position", fields.position],
     ["Experience", fields.experience || "Not provided"],
-    ["Resume link", fields.resumeLink]
+    ["Resume link", fields.resumeLink || "Not provided"]
   ];
   const body = details.map(([label, value]) => `${label}: ${value}`).join("\n");
   const htmlBody = details
     .map(([label, value]) => {
-      const renderedValue = label === "Resume link"
+      const renderedValue = label === "Resume link" && fields.resumeLink
         ? `<a href="${escapeHtml_(value)}">Open resume in Google Drive</a>`
         : escapeHtml_(value);
       return `<p><strong>${escapeHtml_(label)}:</strong> ${renderedValue}</p>`;

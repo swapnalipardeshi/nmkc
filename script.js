@@ -71,7 +71,7 @@ if (applicationForm) {
 
     showFormMessage(
       "error",
-      `Please check ${fieldName}. Complete all required fields, accept the consent checkbox, and provide your Google Drive resume link before sending.`
+      `Please check ${fieldName}. Complete all required fields and accept the consent checkbox before sending.`
     );
   }, true);
 
@@ -85,12 +85,12 @@ if (applicationForm) {
     if (!applicationForm.reportValidity()) return;
 
     const resumeLink = resumeLinkInput?.value.trim() || "";
-    if (!isValidDriveLink(resumeLink)) {
-      resumeLinkInput?.setCustomValidity("Paste a valid Google Drive file link to your resume.");
+    if (resumeLink && !isValidDriveLink(resumeLink)) {
+      resumeLinkInput?.setCustomValidity("Paste a valid Google Drive file link, or leave this optional field empty.");
       resumeLinkInput?.reportValidity();
       return;
     }
-    resumeLinkInput.setCustomValidity("");
+    resumeLinkInput?.setCustomValidity("");
 
     if (
       !isConfigured(DRIVE_UPLOAD_CONFIG.endpoint, "YOUR_") ||

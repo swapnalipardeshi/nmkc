@@ -166,20 +166,20 @@
             <label class="field full-width">Teaching / industry experience (optional)
               <textarea name="experience" rows="3" placeholder="Briefly mention relevant experience"></textarea>
             </label>
-            <label class="field full-width">Google Drive resume link <span>*</span>
+            <label class="field full-width">Google Drive resume link (optional)
               <span class="resume-upload-control">
-                <input class="resume-upload-input" type="url" id="resumeLink" name="resumeLink" placeholder="https://drive.google.com/file/d/..." required aria-required="true" aria-describedby="resumeHelp" />
-                <small id="resumeHelp">Paste a link to your resume file. In Google Drive, set General access to “Anyone with the link” and role to “Viewer”, otherwise HR may not be able to open it. Anyone with the link can then view the file.</small>
+                <input class="resume-upload-input" type="url" id="resumeLink" name="resumeLink" placeholder="https://drive.google.com/file/d/..." aria-describedby="resumeHelp" />
+                <small id="resumeHelp">Optional. If provided, set General access to “Anyone with the link” and role to “Viewer” so HR can open the file. Anyone with the link can then view it.</small>
               </span>
             </label>
           </div>
-          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and resume to the NMKC recruitment team. <b>*</b></span></label>
+          <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and optional resume link to the NMKC recruitment team. <b>*</b></span></label>
           <div class="captcha-field">
             <div id="captchaContainer" aria-label="Spam protection"></div>
             <small>Complete the spam protection check before submitting.</small>
           </div>
           <button class="button button-submit" type="submit">Send application <span aria-hidden="true">→</span></button>
-          <p class="form-footnote">Your application details and Google Drive resume link will be emailed to the recruitment team.</p>
+          <p class="form-footnote">Your application details and, if provided, your Google Drive resume link will be emailed to the recruitment team.</p>
           <div class="form-message" id="formMessage" role="status" aria-live="polite" hidden></div>
         </form>
       </div>

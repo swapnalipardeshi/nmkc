@@ -4,7 +4,7 @@ A responsive recruitment page for the North Maharashtra Knowledge City, Jalgaon 
 
 ## Application form
 
-Applicants paste a Google Drive link to their resume rather than uploading a file. The form validates that the link points to a Google Drive file or Google Docs document and emails it with the application details to the configured recruitment recipient. The HR email address is not displayed on the form.
+Applicants may optionally paste a Google Drive link to their resume rather than uploading a file. When provided, the form validates that the link points to a Google Drive file or Google Docs document and emails it with the application details to the configured recruitment recipient. The HR email address is not displayed on the form.
 
 ### Google Drive sharing note
 
