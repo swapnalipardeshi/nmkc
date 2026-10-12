@@ -37,6 +37,19 @@ applicationForm.addEventListener("reset", () => {
   resumeFileName.textContent = "No resume selected";
 });
 
+applicationForm.addEventListener("invalid", (event) => {
+  const invalidField = event.target;
+  const fieldLabel = invalidField.closest("label");
+  const fieldName = fieldLabel
+    ? fieldLabel.textContent.replace(/\s+/g, " ").trim()
+    : "a required field";
+
+  showFormMessage(
+    "error",
+    `Please check ${fieldName}. Complete all required fields, accept the consent checkbox, and choose a resume before sending.`
+  );
+}, true);
+
 applicationForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   formMessage.hidden = true;
@@ -51,13 +64,18 @@ applicationForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (
-    !window.emailjs ||
-    Object.values(EMAILJS_CONFIG).some((value) => value.startsWith("YOUR_"))
-  ) {
+  if (Object.values(EMAILJS_CONFIG).some((value) => value.startsWith("YOUR_"))) {
     showFormMessage(
       "error",
       "Email delivery is not configured yet. Please contact the website administrator."
+    );
+    return;
+  }
+
+  if (!window.emailjs) {
+    showFormMessage(
+      "error",
+      "The email service could not load. Check your internet connection, reload the page, and try again."
     );
     return;
   }
@@ -68,6 +86,7 @@ applicationForm.addEventListener("submit", async (event) => {
 
   submitButton.disabled = true;
   submitButton.textContent = "Sending application...";
+  showFormMessage("pending", "Sending your application and resume. Please keep this page open.");
 
   let timeoutId;
   try {
