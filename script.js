@@ -3,7 +3,8 @@ const mainNav = document.getElementById("mainNav");
 const applicationForm = document.getElementById("applicationForm");
 const formMessage = document.getElementById("formMessage");
 const submitButton = applicationForm.querySelector('button[type="submit"]');
-const resumeInput = applicationForm.querySelector('input[name="resume"]');
+const resumeInput = document.getElementById("resumeInput");
+const resumeFileName = document.getElementById("resumeFileName");
 const originalSubmitButtonContent = submitButton.innerHTML;
 
 const EMAILJS_CONFIG = {
@@ -28,6 +29,11 @@ mainNav.querySelectorAll("a").forEach((link) => {
 
 resumeInput.addEventListener("change", () => {
   resumeInput.setCustomValidity("");
+  resumeFileName.textContent = resumeInput.files[0]?.name || "No resume selected";
+});
+
+applicationForm.addEventListener("reset", () => {
+  resumeFileName.textContent = "No resume selected";
 });
 
 applicationForm.addEventListener("submit", async (event) => {

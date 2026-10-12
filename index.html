@@ -167,8 +167,11 @@
               <textarea name="experience" rows="3" placeholder="Briefly mention relevant experience"></textarea>
             </label>
             <label class="field full-width">Resume / CV <span>*</span>
-              <input type="file" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
-              <small>Upload a PDF or Word document (.pdf, .doc, .docx).</small>
+              <span class="resume-upload-control">
+                <input class="resume-upload-input" type="file" id="resumeInput" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required aria-describedby="resumeHelp resumeFileName" />
+                <small id="resumeHelp">PDF or Word document (.pdf, .doc, .docx).</small>
+                <small class="resume-file-name" id="resumeFileName" aria-live="polite">No resume selected</small>
+              </span>
             </label>
           </div>
           <label class="consent"><input type="checkbox" name="consent" required /><span>I confirm this information is accurate and agree to send my application details and resume to swapnalipardeshi05032001@gmail.com. <b>*</b></span></label>
