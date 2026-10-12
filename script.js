@@ -73,6 +73,7 @@ if (applicationForm) {
     const applicationId = `NMKC-${Date.now().toString().slice(-8)}`;
     applicationForm.elements.application_id.value = applicationId;
     applicationForm.elements.submitted_at.value = new Date().toLocaleString();
+    applicationForm.elements.resume_url.value = resumeLink;
 
     if (submitButton) {
       submitButton.disabled = true;

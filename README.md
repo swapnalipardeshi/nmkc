@@ -13,7 +13,7 @@ If a resume link is provided, applicants must set its Google Drive **General acc
 The page uses the configured public key, service ID, and template ID in `script.js`. In the EmailJS template:
 
 1. Set **To Email** to the recruitment inbox as a fixed template setting. Do not use an applicant-controlled recipient.
-2. Include the form variables `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, `{{experience}}`, and `{{resumeLink}}` in the subject/body. The resume link is optional.
+2. Include the form variables `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, `{{experience}}`, and `{{resume_url}}` in the subject/body. `resume_url` is populated from the optional Google Drive link field.
 3. Do not configure a file attachment for `resume`; this form sends a Drive URL as text.
 4. Restrict allowed origins to the published website domain and configure EmailJS usage limits.
 
