@@ -27,6 +27,8 @@ The form validates required fields, including a resume in PDF or Word format, an
 
 Test with a non-sensitive application and resume before sharing the site. EmailJS/provider attachment size limits may apply. This is a third-party email form, not an official college recruitment portal; obtain institutional approval and provide any required privacy notice before using it for real applicants.
 
+If the form reports a timeout, delivery is unconfirmed (the request may still finish). Check **EmailJS → Email History** before submitting again to avoid duplicate applications. If EmailJS reports a send error, verify the template's fixed **To Email**, the connected email service, allowed website origins, and the `resume` attachment parameter.
+
 ## Advertisement details included
 - Walk-in interview: Thursday, 15 October 2026
 - Time: 10:30 AM onwards

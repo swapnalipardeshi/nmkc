@@ -12,6 +12,7 @@ const EMAILJS_CONFIG = {
   serviceId: "service_mte6ity",
   templateId: "template_1w147ny"
 };
+const EMAILJS_REQUEST_TIMEOUT_MS = 30000;
 
 menuToggle.addEventListener("click", () => {
   const isOpen = mainNav.classList.toggle("open");
@@ -68,13 +69,21 @@ applicationForm.addEventListener("submit", async (event) => {
   submitButton.disabled = true;
   submitButton.textContent = "Sending application...";
 
+  let timeoutId;
   try {
-    await window.emailjs.sendForm(
+    const emailRequest = window.emailjs.sendForm(
       EMAILJS_CONFIG.serviceId,
       EMAILJS_CONFIG.templateId,
       applicationForm,
       { publicKey: EMAILJS_CONFIG.publicKey }
     );
+    const timeoutRequest = new Promise((resolve, reject) => {
+      timeoutId = window.setTimeout(
+        () => reject(new Error("EMAILJS_REQUEST_TIMEOUT")),
+        EMAILJS_REQUEST_TIMEOUT_MS
+      );
+    });
+    await Promise.race([emailRequest, timeoutRequest]);
 
     showFormMessage(
       "success",
@@ -83,11 +92,16 @@ applicationForm.addEventListener("submit", async (event) => {
     applicationForm.reset();
   } catch (error) {
     console.error("EmailJS application delivery failed:", error);
+    const timedOut = error?.message === "EMAILJS_REQUEST_TIMEOUT";
+    const errorDetails = String(error?.text || error?.message || "Unknown EmailJS error").slice(0, 240);
     showFormMessage(
       "error",
-      "We could not send your application. Your entries are still in the form; please try again or email the recipient directly."
+      timedOut
+        ? "EmailJS did not respond within 30 seconds, so delivery is unconfirmed. Check EmailJS Email History before trying again to avoid duplicate applications. Your form entries are still here."
+        : `We could not send your application. Your entries are still in the form. EmailJS reported: ${errorDetails}`
     );
   } finally {
+    window.clearTimeout(timeoutId);
     submitButton.disabled = false;
     submitButton.innerHTML = originalSubmitButtonContent;
   }
