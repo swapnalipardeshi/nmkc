@@ -21,7 +21,8 @@ The form validates required fields, including a resume in PDF or Word format, an
 1. Create an EmailJS account and add an email service that can deliver to `swapnalipardeshi05032001@gmail.com`.
 2. Create an email template. Set the template's **To Email** to `swapnalipardeshi05032001@gmail.com` (do not let applicants choose the recipient). Use these template variables in the subject/body: `{{application_id}}`, `{{submitted_at}}`, `{{fullName}}`, `{{contact}}`, `{{email}}`, `{{education}}`, `{{subject}}`, `{{position}}`, and `{{experience}}`.
 3. In the template's **Attachments** tab, add a **Form File Attachment** and set its **Parameter Name** to `resume`. This must match the file input's `name="resume"`; the form uses EmailJS `sendForm` to send the uploaded document.
-   The resume is sent as an email attachment. Do not use `{{resume_url}}` as a link unless you separately implement file hosting; this form does not upload resumes to a URL.
+   The resume is sent as an email attachment. The form does not create a hosted resume URL, so remove any `{{resume_url}}` link/button from the EmailJS template and replace it with text such as: “The applicant's resume is attached to this email.”
+   If EmailJS rejects a resume because it exceeds 50 KB, check the attachment-size limits for the EmailJS plan and connected email service. Raise the applicable limit in the provider settings/plan; this website cannot override provider limits.
 4. Copy the EmailJS public key, service ID, and template ID into `EMAILJS_CONFIG` in `script.js`. The public key is intended for browser use; never put a private key or email account password in this website.
 5. Restrict the EmailJS allowed origins to the website's published domain and configure the provider's usage limits before publishing.
 
